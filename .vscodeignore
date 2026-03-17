@@ -1,5 +1,9 @@
-.vscode/**
-src/**
-node_modules/**
-tsconfig.json
-.gitignore
+**
+!dist/**
+!icons/**
+!syntaxes/**
+!img/**
+!languageConfig.json
+!package.json
+!LICENSE.md
+!README.md

@@ -2,7 +2,7 @@
   "name": "voidflag-vf",
   "displayName": "VoidFlag (.vf)",
   "description": "Syntax highlighting and diagnostics for VoidFlag schema files",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "VoidFlag",
   "license": "MIT",
   "repository": {
@@ -10,7 +10,7 @@
     "url": "https://github.com/C1ANCYSz/voidflag-vscode"
   },
   "engines": {
-    "vscode": "^1.82.0"
+    "vscode": "^1.90.0"
   },
   "categories": [
     "Programming Languages"
@@ -28,7 +28,11 @@
         "extensions": [
           ".vf"
         ],
-        "configuration": "./languageConfig.json"
+        "configuration": "./languageConfig.json",
+        "icon": {
+          "light": "./icons/vf-light.svg",
+          "dark": "./icons/vf.svg"
+        }
       }
     ],
     "grammars": [
@@ -46,12 +50,12 @@
       }
     ]
   },
-  "icon": "./icons/icon.png",
+  "icon": "./icons/ext-icon.png",
   "scripts": {
     "build": "node esbuild.mjs",
     "watch": "node esbuild.mjs --watch",
     "typecheck": "tsc --noEmit",
-    "package": "node esbuild.mjs && vsce package"
+    "package": "node esbuild.mjs && vsce package --no-dependencies"
   },
   "dependencies": {},
   "bundledDependencies": [],

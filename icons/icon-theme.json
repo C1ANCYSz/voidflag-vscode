@@ -2,9 +2,17 @@
   "iconDefinitions": {
     "vf": {
       "iconPath": "./vf.svg"
+    },
+    "vf-light": {
+      "iconPath": "./vf-light.svg"
     }
   },
   "fileExtensions": {
     "vf": "vf"
+  },
+  "light": {
+    "fileExtensions": {
+      "vf": "vf-light"
+    }
   }
 }
