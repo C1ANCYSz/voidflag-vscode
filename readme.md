@@ -2,7 +2,7 @@
 
 > Schema-first feature flags with a first-class editor experience.
 
-![VoidFlag](https://placeholder.com/extension-banner.png)
+![VoidFlag](./img/vf.png)
 
 ## Features
 
