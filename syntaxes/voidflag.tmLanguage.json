@@ -1,0 +1,92 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "VoidFlag",
+  "scopeName": "source.vf",
+  "patterns": [
+    { "include": "#comment-line" },
+    { "include": "#comment-block" },
+    { "include": "#flag-declaration" },
+    { "include": "#field-type" },
+    { "include": "#field-fallback" }
+  ],
+  "repository": {
+    "comment-line": {
+      "name": "comment.line.double-slash.vf",
+      "match": "//.*$"
+    },
+
+    "comment-block": {
+      "name": "comment.block.vf",
+      "begin": "/\\*",
+      "end": "\\*/",
+      "captures": {
+        "0": { "name": "punctuation.definition.comment.vf" }
+      }
+    },
+
+    "flag-declaration": {
+      "comment": "flag <name> { ... }",
+      "begin": "\\b(flag)\\b\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*(\\{)",
+      "end": "\\}",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.flag.vf" },
+        "2": { "name": "entity.name.flag.vf" },
+        "3": { "name": "punctuation.definition.block.begin.vf" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.block.end.vf" }
+      },
+      "patterns": [
+        { "include": "#comment-line" },
+        { "include": "#comment-block" },
+        { "include": "#field-type" },
+        { "include": "#field-fallback" }
+      ]
+    },
+
+    "field-type": {
+      "comment": "type <typename>",
+      "match": "\\b(type)\\b\\s+(bool|string|number)\\b",
+      "captures": {
+        "1": { "name": "keyword.other.field.vf" },
+        "2": { "name": "support.type.primitive.vf" }
+      }
+    },
+
+    "field-fallback": {
+      "comment": "fallback <value>",
+      "begin": "\\b(fallback)\\b\\s*",
+      "end": "(?=$|//|/\\*|})",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.field.vf" }
+      },
+      "patterns": [
+        { "include": "#value-string" },
+        { "include": "#value-number" },
+        { "include": "#value-bool" }
+      ]
+    },
+
+    "value-string": {
+      "name": "string.quoted.double.vf",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.vf",
+          "match": "\\\\."
+        }
+      ]
+    },
+
+    "value-number": {
+      "name": "constant.numeric.vf",
+      "match": "-?\\b\\d+(\\.\\d+)?\\b"
+    },
+
+    "value-bool": {
+      "name": "constant.language.boolean.vf",
+      "match": "\\b(true|false)\\b"
+    }
+  }
+}

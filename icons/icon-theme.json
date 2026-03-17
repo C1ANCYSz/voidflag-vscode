@@ -1,0 +1,10 @@
+{
+  "iconDefinitions": {
+    "vf": {
+      "iconPath": "./vf.svg"
+    }
+  },
+  "fileExtensions": {
+    "vf": "vf"
+  }
+}

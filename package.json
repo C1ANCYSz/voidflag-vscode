@@ -1,0 +1,67 @@
+{
+  "name": "voidflag-vf",
+  "displayName": "VoidFlag (.vf)",
+  "description": "Syntax highlighting and diagnostics for VoidFlag schema files",
+  "version": "0.0.1",
+  "publisher": "voidflag",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "voidflag",
+        "aliases": [
+          "VoidFlag",
+          "vf"
+        ],
+        "extensions": [
+          ".vf"
+        ],
+        "configuration": "./languageConfig.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "voidflag",
+        "scopeName": "source.vf",
+        "path": "./syntaxes/voidflag.tmLanguage.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "voidflag-icons",
+        "label": "VoidFlag Icons",
+        "path": "./icons/icon-theme.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "type",
+        "title": "Type"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
+    "package": "vsce package"
+  },
+  "dependencies": {
+    "@vscode/vsce": "^3.7.1",
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.11"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.82.0",
+    "@voidflag/parser": "workspace:*",
+    "typescript": "^5.0.0"
+  }
+}
