@@ -20,8 +20,6 @@ import {
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { parseSchema, LexerError, ParseError } from '@voidflag/parser';
 
-// ─── Completion items ─────────────────────────────────────────────────────────
-
 type Context =
   | 'top-level'
   | 'field-name'
@@ -40,29 +38,22 @@ function getContext(
   const currentLine = lines[pos.line] ?? '';
   const textBeforeCursor = currentLine.slice(0, pos.character).trimStart();
 
-  // ── After "type " → suggest type values ──────────────────────────────────
   if (/^type\s+\S*$/.test(textBeforeCursor)) return 'type-value';
 
-  // ── After "fallback " → only suggest for bool, nothing for string/number ─
   if (/^fallback\s+/.test(textBeforeCursor)) {
     const flagType = getFlagTypeInBlock(lines, pos.line, pos.character);
     return flagType === 'bool' ? 'fallback-value-bool' : 'unknown';
   }
 
-  // ── Are we inside a flag block? ───────────────────────────────────────────
   const blockStart = findBlockStart(lines, pos.line, pos.character);
   if (blockStart === -1) return 'top-level';
 
-  // ── On a fresh line inside the block — suggest only missing fields ────────
-  // Allow partial typing: "t", "ty", "type", "f", "fa" etc. should still
-  // trigger suggestions. Only bail if the word isn't a prefix of either keyword.
   const partial = textBeforeCursor.trim();
   const isTypingField =
     partial === '' || 'type'.startsWith(partial) || 'fallback'.startsWith(partial);
 
   if (!isTypingField) return 'unknown';
 
-  // Scan everything written in this block so far (previous lines only)
   const blockContent = lines.slice(blockStart + 1, pos.line).join(' ');
   const hasType = /\btype\s+(bool|string|number)\b/.test(blockContent);
   const hasFallback = /\bfallback\s+\S/.test(blockContent);
@@ -96,7 +87,6 @@ function getFlagTypeInBlock(
 ): string {
   const blockStart = findBlockStart(lines, fromLine, fromChar);
   if (blockStart === -1) return 'unknown';
-  // Check previous lines and the current line before cursor
   const linesToScan = [
     ...lines.slice(blockStart + 1, fromLine),
     (lines[fromLine] ?? '').slice(0, fromChar),
@@ -191,8 +181,6 @@ const ITEMS: Record<Context, CompletionItem[]> = {
   unknown: [],
 };
 
-// ─── Hover info ───────────────────────────────────────────────────────────────
-
 const HOVER_DOCS: Record<string, string> = {
   flag: '**flag** — declares a new feature flag.\n\n```vf\nflag myFlag {\n  type bool\n  fallback false\n}\n```',
   type: '**type** — the data type of this flag.\n\nAccepted values: `bool`, `string`, `number`',
@@ -214,8 +202,6 @@ function wordAt(line: string, character: number): string {
   return line.slice(start, end);
 }
 
-// ─── LSP setup ────────────────────────────────────────────────────────────────
-
 const connection = createConnection(ProposedFeatures.all);
 const documents = new TextDocuments(TextDocument);
 
@@ -229,8 +215,6 @@ connection.onInitialize(
     },
   }),
 );
-
-// ─── Diagnostics ──────────────────────────────────────────────────────────────
 
 function validate(doc: TextDocument): void {
   const source = doc.getText();
@@ -264,15 +248,11 @@ documents.onDidClose((e) =>
   connection.sendDiagnostics({ uri: e.document.uri, diagnostics: [] }),
 );
 
-// ─── Completion ───────────────────────────────────────────────────────────────
-
 connection.onCompletion((params: TextDocumentPositionParams): CompletionItem[] => {
   const doc = documents.get(params.textDocument.uri);
   if (!doc) return [];
   return ITEMS[getContext(doc, params.position)] ?? [];
 });
-
-// ─── Hover ────────────────────────────────────────────────────────────────────
 
 connection.onHover((params: HoverParams): Hover | null => {
   const doc = documents.get(params.textDocument.uri);
@@ -285,10 +265,7 @@ connection.onHover((params: HoverParams): Hover | null => {
   return { contents: { kind: MarkupKind.Markdown, value: docs } };
 });
 
-// ─── Formatter ───────────────────────────────────────────────────────────────
-
 function formatVf(source: string): string {
-  // Don't format if the file has errors
   let ast;
   try {
     ast = parseSchema(source);
@@ -331,8 +308,6 @@ connection.onDocumentFormatting((params: DocumentFormattingParams): TextEdit[] =
     },
   ];
 });
-
-// ─── Start ────────────────────────────────────────────────────────────────────
 
 documents.listen(connection);
 connection.listen();
