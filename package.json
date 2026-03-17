@@ -3,7 +3,7 @@
   "displayName": "VoidFlag (.vf)",
   "description": "Syntax highlighting and diagnostics for VoidFlag schema files",
   "version": "0.0.1",
-  "publisher": "voidflag",
+  "publisher": "VoidFlag",
   "engines": {
     "vscode": "^1.82.0"
   },
