@@ -2,7 +2,7 @@
 
 > Schema-first feature flags with a first-class editor experience.
 
-![VoidFlag](./img/vf.png)
+![VoidFlag](./img/image.png)
 
 ## Features
 
