@@ -4,6 +4,11 @@
   "description": "Syntax highlighting and diagnostics for VoidFlag schema files",
   "version": "0.0.1",
   "publisher": "VoidFlag",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/C1ANCYSz/voidflag-vscode"
+  },
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -39,29 +44,26 @@
         "label": "VoidFlag Icons",
         "path": "./icons/icon-theme.json"
       }
-    ],
-    "commands": [
-      {
-        "command": "type",
-        "title": "Type"
-      }
     ]
   },
+  "icon": "./icons/icon.png",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "watch": "tsc -p tsconfig.json --watch",
-    "package": "vsce package"
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "package": "node esbuild.mjs && vsce package"
   },
-  "dependencies": {
-    "@vscode/vsce": "^3.7.1",
-    "vscode-languageclient": "^9.0.1",
-    "vscode-languageserver": "^9.0.1",
-    "vscode-languageserver-textdocument": "^1.0.11"
-  },
+  "dependencies": {},
+  "bundledDependencies": [],
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.82.0",
     "@voidflag/parser": "workspace:*",
-    "typescript": "^5.0.0"
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.27.4",
+    "typescript": "^5.0.0",
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.11"
   }
 }
