@@ -2,7 +2,7 @@
   "name": "voidflag-vf",
   "displayName": "VoidFlag (.vf)",
   "description": "Syntax highlighting and diagnostics for VoidFlag schema files",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "VoidFlag",
   "license": "MIT",
   "repository": {
@@ -18,6 +18,17 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": [
+          "voidflag.json",
+          "voidflag.config.json",
+          "vf.json",
+          "vf.config.json"
+        ],
+        "url": "./schema.json"
+      }
+    ],
     "languages": [
       {
         "id": "voidflag",
@@ -30,8 +41,8 @@
         ],
         "configuration": "./languageConfig.json",
         "icon": {
-          "light": "/icons/vf-light.svg",
-          "dark": "/icons/vf.svg"
+          "light": "icons/vf-light.svg",
+          "dark": "icons/vf.svg"
         }
       }
     ],
@@ -50,17 +61,7 @@
       }
     ]
   },
-  "files": [
-    "dist",
-    "icons",
-    "syntaxes",
-    "img",
-    "languageConfig.json",
-    "README.md",
-    "LICENSE.md",
-    "package.json"
-  ],
-  "icon": "/icons/ext-icon.png",
+  "icon": "icons/ext-icon.png",
   "scripts": {
     "build": "node esbuild.mjs",
     "watch": "node esbuild.mjs --watch",

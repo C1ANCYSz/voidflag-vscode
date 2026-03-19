@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "VoidFlag Config",
+  "description": "Configuration file for VoidFlag",
+
+  "properties": {
+    "voidflagDir": {
+      "type": "string",
+      "description": "Directory where VoidFlag files are stored",
+      "default": "src/voidflag",
+      "examples": ["src/voidflag"]
+    },
+
+    "lang": {
+      "type": "string",
+      "enum": ["ts"],
+      "description": "Language for generated output (currently only TypeScript is supported)",
+      "examples": ["ts"]
+    },
+
+    "schemaPath": {
+      "type": "string",
+      "description": "Path to the .vf schema file",
+      "examples": ["./schema.vf", "src/schema.vf"]
+    },
+
+    "defaultEnv": {
+      "type": "string",
+      "description": "Default environment name (must exist in 'environments')",
+      "examples": ["dev", "production"]
+    },
+
+    "devPort": {
+      "type": "number",
+      "description": "Development server port",
+      "default": 4040,
+      "examples": [4040, 3000]
+    },
+
+    "environments": {
+      "type": "object",
+      "description": "Environment name → environment variable key. Use `vf sync env` to populate automatically.",
+      "additionalProperties": {
+        "type": "string",
+        "description": "Environment variable name",
+        "pattern": "^[A-Z0-9_]+$",
+        "examples": ["dev", "prod", "staging"]
+      },
+      "examples": [
+        {
+          "dev": "VOIDFLAG_DEV_URL",
+          "prod": "VOIDFLAG_PROD_URL"
+        }
+      ]
+    }
+  },
+
+  "required": ["voidflagDir", "lang", "schemaPath"],
+  "additionalProperties": false
+}
