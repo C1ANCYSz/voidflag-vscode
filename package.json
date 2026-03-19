@@ -30,8 +30,8 @@
         ],
         "configuration": "./languageConfig.json",
         "icon": {
-          "light": "./icons/vf-light.svg",
-          "dark": "./icons/vf.svg"
+          "light": "/icons/vf-light.svg",
+          "dark": "/icons/vf.svg"
         }
       }
     ],
@@ -50,7 +50,17 @@
       }
     ]
   },
-  "icon": "./icons/ext-icon.png",
+  "files": [
+    "dist",
+    "icons",
+    "syntaxes",
+    "img",
+    "languageConfig.json",
+    "README.md",
+    "LICENSE.md",
+    "package.json"
+  ],
+  "icon": "/icons/ext-icon.png",
   "scripts": {
     "build": "node esbuild.mjs",
     "watch": "node esbuild.mjs --watch",
