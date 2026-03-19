@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.4] - 2026-03-19
+
+### Added
+
+- included the JSON schema in the build
+
 ## [0.0.3] - 2026-03-19
 
 ### Added

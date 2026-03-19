@@ -2,7 +2,7 @@
   "name": "voidflag-vf",
   "displayName": "VoidFlag (.vf)",
   "description": "Syntax highlighting and diagnostics for VoidFlag schema files",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "VoidFlag",
   "license": "MIT",
   "repository": {
