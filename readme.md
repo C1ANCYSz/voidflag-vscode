@@ -2,6 +2,8 @@
 
 > Schema-first feature flags with a first-class editor experience.
 
+## more info on https://voidflag.vercel.app/
+
 ![VoidFlag](./img/image.png)
 
 ## Features
